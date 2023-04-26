@@ -53,7 +53,7 @@ void add_task(int index) {
 
 // Display all tasks execution time and period
 void display_tasks(int n){
-    printf("Execution time\tPeriod\tPriority\n");
+    printf("\nExecution time\tPeriod\tPriority\n");
     for(int i = 0; i < n; i++) {
         printf("%d\t\t%d\t%d\n", tasks[i].exec_time, tasks[i].period, tasks[i].priority);
     }
@@ -102,6 +102,7 @@ void schedule(int n) {
         }
     }
 
+    printf("\nTime\tTask\n");
     // pick the task with the least priority and execute it
     for(int t = 0; t < s_time; t++) {
         int gpt = -1; // ? greatest priority task
