@@ -4,33 +4,40 @@
 
 #define MAX_TASKS 10
 
-typedef struct t {
-    int exec_time, period, priority, remaining_time, deadline;
+typedef struct {
+    int exec_time;
+    int period;
+    int  priority;
+    int remaining_time;
+    int deadline;
 }task;
 
 task tasks[MAX_TASKS];
 
-void add_task(int index);
-void display_tasks(int n);
-bool can_be_scheduled(double n);
+// Functions declarations
+void add_task(int index); // add a new task at the given index
+void display_tasks(int n); // display all tasks execution time and period
+bool can_be_scheduled(double n); // check if the set of tasks can be scheduled using the RM algorithm
 int gcd(int a, int b); // greatest common divisor
 int lcm(int a, int b); // least common multiple
-void schedule(int n);
+void schedule(int n); // rate monotonic algorithm
 
 int main() {
-    int nb_tasks;
+    int nb_tasks; // number of tasks
 
     do{
         printf("Enter the number of tasks (max 10): ");
         scanf("%d", &nb_tasks);
-    }while(nb_tasks > MAX_TASKS && nb_tasks < 0);
+    } while(nb_tasks > MAX_TASKS && nb_tasks < 0);
 
+    // Adding tasks
     for(int i = 0; i < nb_tasks; i++){
         add_task(i);
     }
 
+
     display_tasks(nb_tasks);
-    if (can_be_scheduled((double)nb_tasks)) {
+    if (can_be_scheduled((double)nb_tasks)) { 
         schedule(nb_tasks);
         display_tasks(nb_tasks);
     } else {
@@ -65,7 +72,6 @@ bool can_be_scheduled(double n) {
     for(int i = 0; i < n; i++){
         sum += (double)tasks[i].exec_time / (double)tasks[i].period;
     }
-    // printf("%lf - %lf\n", sum, (double)n*(pow(2.0, 1.0/(double)n) - 1.0));
     return sum <= n*(pow(2.0, 1.0/n) - 1.0) ? true : false;
 }
 
@@ -94,7 +100,6 @@ void schedule(int n) {
     for(int i = 0; i < n; i++) {
         for(int j = i + 1; j < n; j++) {
             if (tasks[j].period < tasks[i].period) {
-                // gpt = tasks[j].period < tasks[gpt].period ? j : gpt;
                 int tmp = tasks[i].priority;
                 tasks[i].priority = tasks[j].priority;
                 tasks[j].priority = tmp;
