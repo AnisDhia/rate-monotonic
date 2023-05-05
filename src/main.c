@@ -59,9 +59,9 @@ void add_task(int index) {
 
 // Display all tasks execution time and period
 void display_tasks(int n){
-    printf("\nExecution time\tPeriod\tPriority\n");
+    printf("\nTask\tExecution time\tPeriod\tPriority\n");
     for(int i = 0; i < n; i++) {
-        printf("%d\t\t%d\t%d\n", tasks[i].exec_time, tasks[i].period, tasks[i].priority);
+        printf("Task %d\t%d\t\t%d\t%d\n", i + 1, tasks[i].exec_time, tasks[i].period, tasks[i].priority);
     }
 }
 
