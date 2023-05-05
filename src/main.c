@@ -2,17 +2,17 @@
 #include <stdbool.h>
 #include <math.h> // pow()
 
-#define MAX_TASKS 10
+#define MAX_TASKS 9
 
 typedef struct {
-    int exec_time;
-    int period;
-    int  priority;
-    int remaining_time;
-    int deadline;
-}task;
+    int exec_time; // (capacity/ calculation time.. etc)
+    int period; 
+    int priority; 
+    int remaining_time; // remaining time to finish the task
+    int deadline; // deadline of the task
+}task; // custom struct type to store a task
 
-task tasks[MAX_TASKS];
+task tasks[MAX_TASKS]; // an array to store the tasks or processes.
 
 // Functions declarations
 void add_task(int index); // add a new task at the given index
@@ -26,7 +26,7 @@ int main() {
     int nb_tasks; // number of tasks
 
     do{
-        printf("Enter the number of tasks (max 10): ");
+        printf("Enter the number of tasks (max %d): ", MAX_TASKS);
         scanf("%d", &nb_tasks);
     } while(nb_tasks > MAX_TASKS && nb_tasks < 0);
 
@@ -34,7 +34,6 @@ int main() {
     for(int i = 0; i < nb_tasks; i++){
         add_task(i);
     }
-
 
     display_tasks(nb_tasks);
     if (can_be_scheduled((double)nb_tasks)) { 
@@ -96,7 +95,7 @@ void schedule(int n) {
         s_time = lcm(s_time, tasks[i].period);
     }
 
-    // Set task priority by period using bubble sort
+    // ? Set task priority by period using bubble sort
     for(int i = 0; i < n; i++) {
         for(int j = i + 1; j < n; j++) {
             if (tasks[j].period < tasks[i].period) {
